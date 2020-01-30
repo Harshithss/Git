@@ -20,5 +20,6 @@ public class RandomPasswordGenrator {
 		builder.append(RandomStringUtils.random(1, capLetters)).append(RandomStringUtils.random(1, lowLetters))
 				.append(RandomStringUtils.random(1, specLetters)).append(RandomStringUtils.random(2, numLetters));
 		return new String(builder);
+		//harshith
 	}
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan
+		base-package="com.xworkz.medi" />
+	<bean
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
+		id="bCryptPasswordEncoder" />
+
+	<bean
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean "
+		id="localSessionFactoryBean">
+		<property name="dataSource" ref="driverManagerDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.xworkz.medi.entity.MediEntity</value>
+				<value>com.xworkz.medi.dto.EmpDTO</value>
+				<value>com.xworkz.medi.entity.AppointmentEntity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		id="viewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="javaMailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"></property>
+		<property name="port" value="25"></property>
+		<property name="username" value="nandinimc01@gmail.com"></property>
+		<property name="password" value="8095843939"></property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop> 
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+
+	</bean>
+
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="driverManagerDataSource">
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/project" />
+		<property name="username" value="root" />
+		<property name="password" value="nandu@01" />
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+	</bean>
+</beans>
